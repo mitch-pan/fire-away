@@ -1,0 +1,20 @@
+name: run_uploader
+label: Run the WF Uploader application
+description: Runs WF uploader 
+type: app
+extends:
+
+labels:
+  service_type: tort_assess
+
+variables:
+- name: api_key
+  description: WildFire API Key
+  default: 
+  type_hint: text
+- name: file_name
+  description: Path of file to upload
+  default: fileName
+  type_hint: text
+
+snippets:
