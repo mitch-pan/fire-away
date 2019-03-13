@@ -1,12 +1,5 @@
 name: wfUploader
 
-#repositories:
-# Source code for pan-tort
-#  - name: PAN-TORT
-#    url:  https://github.com/PaloAltoNetworks/pan-tort-source.git
-#    branch: master
-#    destination_directory: pan-tort-source
-
 views:
 
   - name: ''
@@ -18,8 +11,8 @@ views:
     context:
       title: WildFire Uploader
       description: >
-        Use this tool to upload files to WF for analysis
-      documentation_link: http://github.com/PaloAltoNetworks/pan-tort
+        Use this tool to upload files or hashes to WF for analysis
+      documentation_link: http://github.com/mitch-pan/wf-uploader
       next: run_uploader
 
 
@@ -30,7 +23,7 @@ views:
     menu_option: Run Uploader
     attributes:
       header: Uploader
-      title: Advanced Threat Analysis
+      title: WildFire Results
       help_text: |
         File Name - Name of file to upload to WF
         API Key - A valid WF API Key
