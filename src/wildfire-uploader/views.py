@@ -30,7 +30,8 @@ class uploadView(CNCBaseFormView):
         sha256 = resp['sha256']
         verdict = resp['verdict']
 
-        formattedResponse = f'File Name: {fileName}\nSHA256: {sha256}\nVerdict: {verdict}'
+        formattedResponse = f'File Name: {fileName}\nSHA256: ' \
+                            f'{sha256}\nVerdict: {verdict}'
 
         print(f"The response is: {resp}")
         print(f"The formatted response is: {formattedResponse}")
