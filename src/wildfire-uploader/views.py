@@ -19,15 +19,23 @@ class uploadView(CNCBaseFormView):
         # get the values from the user submitted form here
         file_name = workflow.get('file_name')
         api_key = workflow.get('api_key')
+        sha256 = workflow.get('hash')
+
         payload = {
-            'file_name': file_name, 'api_key': api_key }
+            'file_name': file_name, 'api_key': api_key, 'sha256': sha256 }
 
         resp = submit_and_check(payload)
+
+        fileName = resp['fileName']
+        sha256 = resp['sha256']
+        verdict = resp['verdict']
+
+        formattedResponse = f'File Name: {fileName}\nSHA256: {sha256}\nVerdict: {verdict}'
+
         print(f"The response is: {resp}")
-        # resp = requests.post(f'http://{tortHost}:{tortPort}', data=payload)
-        # print(resp.headers)
+        print(f"The formatted response is: {formattedResponse}")
 
         results = super().get_context_data()
-        results['results'] = resp
+        results['results'] = formattedResponse
 
         return render(self.request, 'pan_cnc/results.html', context=results)

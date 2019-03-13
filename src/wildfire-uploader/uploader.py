@@ -8,7 +8,7 @@ SUBMIT_URL = "https://wildfire.paloaltonetworks.com/publicapi/submit/file"
 VERDICT_URL = "https://wildfire.paloaltonetworks.com/publicapi/get/verdict"
 SLEEP_INTERVAL = 5
 
-verdict_dict = {"0":"benign", "1":"malware", "2":"grayware", "-100":"pending, no verdict yet", "-101":"error", "-102":"unknown, cannot find sample record", "-103":"invalid hash"}
+verdictDictionary = {"0": "benign", "1": "malware", "2": "grayware", "-100": "pending, no verdict yet", "-101": "error", "-102": "unknown, cannot find sample record", "-103": "invalid hash"}
 
 def submitFile(fileName, apiKey):
 
@@ -70,21 +70,20 @@ def getVerdict( hash, apiKey ):
                 end = response.text.find("</verdict>")
                 verdict = response.text[real_start:end]
 
-                #-100 means the verdict is pending, so lets ask again in two seconds
-                #-102 means there is no sample, which can happen on a new submission if you ask to quickly
+                #Verdict received
                 if verdict != "-100":
                     verdictReceived = 1
-                    v_text = verdict_dict.get(verdict)
-                    print("Verdict: {0}".format(v_text))
-                    return v_text
+                    verdictTetxt = verdictDictionary.get(verdict)
+                    print("Verdict: {0}".format(verdictTetxt))
+                    return verdictTetxt
+                #-100 means the verdict is pending, so lets ask again in SLEEP_INTERVAL seconds
                 else:
-                    #Verdict was -100, so sleep and try again
                     print("Checking again in {0} seonds...".format(SLEEP_INTERVAL))
                     sleep(SLEEP_INTERVAL)
 
             else:
                 #Something went wrong, so give up
-                verdictReceived = 1
+                return "Error"
 
         except requests.exceptions.ConnectionError as errc:
             print ("Error Connecting: ",errc)
@@ -101,11 +100,15 @@ def submit_and_check(fileNameAndKey):
 
         fileName = fileNameAndKey['file_name']
         apiKey = fileNameAndKey['api_key']
+        sha256 = fileNameAndKey['sha256']
 
-        sha256 = submitFile(fileName, apiKey )
+        print(f'Received file={fileName}, apiKey={apiKey} and hash={sha256}')
+
+        if sha256 == "":
+            sha256 = submitFile(fileName, apiKey )
 
         if sha256:
-            print("{0} successfully submitted, sha256:{1}".format(fileName, sha256))
+            print(f'{fileName} successfully submitted, sha256:{sha256}')
 
             sleep(2)
 
@@ -114,12 +117,13 @@ def submit_and_check(fileNameAndKey):
             #fake hash
             #sha256 = "bca4b4c3dab253bfa2eb6830d7ba704c2c93ea3ec2ea59b7c15ed7952b61d957"
 
-            verdict_text = getVerdict(sha256, apiKey)
+            verdictTetxt = getVerdict(sha256, apiKey)
 
-            print(f' "sha256": {sha256}, "verdict": {verdict_text}')
+            print(f' "sha256": {sha256}, "verdict": {verdictTetxt}')
 
-            return({ "sha256": sha256, "verdict": verdict_text })
-
+            return({ "fileName": fileName,  "sha256": sha256, "verdict": verdictTetxt })
+        else:
+            return ({"fileName": fileName, "sha256": sha256, "verdict": "Unable to get verdict"})
 
 
     except IOError:
