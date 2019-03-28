@@ -1,6 +1,6 @@
 name: run_uploader
-label: Run the WF Uploader application
-description: Runs WF uploader 
+label: Run the Fire-Away application
+description: Runs Fire-Away Query
 type: app
 extends:
 
@@ -11,6 +11,10 @@ variables:
 - name: api_key
   description: WildFire API Key
   default: 
+  type_hint: text
+- name: link
+  description: URL to submit to WF
+  default:
   type_hint: text
 - name: file_name
   description: Path of file to upload

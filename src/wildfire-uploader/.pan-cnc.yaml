@@ -1,17 +1,17 @@
-name: wfUploader
+name: Fire-Away
 
 views:
 
   - name: ''
     class: CNCView
-    menu: WF Uploader
+    menu: Fire-Away
     menu_option: Welcome
     attributes:
       template_name: pan_cnc/welcome.html
     context:
-      title: WildFire Uploader
+      title: Fire-Away
       description: >
-        Use this tool to upload files or hashes to WF for analysis
+        Use this tool to upload links, files or hashes to WF for analysis
       documentation_link: http://github.com/mitch-pan/wf-uploader
       next: run_uploader
 
@@ -19,10 +19,10 @@ views:
 # Options grouped by architecture
   - name: run_uploader
     class: uploadView
-    menu: WF Uploader
-    menu_option: Run Uploader
+    menu: Fire-Away
+    menu_option: Fire Away!
     attributes:
-      header: Uploader
+      header: Fire-Away
       title: WildFire Results
       help_text: |
         File Name - Name of file to upload to WF

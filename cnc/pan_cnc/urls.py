@@ -47,14 +47,10 @@ urlpatterns = [
     path('clone_env/<clone>', pan_cnc_views.CreateEnvironmentsView.as_view()),
     path('delete_env/<env_name>', pan_cnc_views.DeleteEnvironmentView.as_view()),
     path('delete_secret/<env_name>/<key_name>', pan_cnc_views.DeleteEnvironmentKeyView.as_view()),
-    path('load_secret/', pan_cnc_views.GetSecretView.as_view()),
     path('unlock_envs', pan_cnc_views.UnlockEnvironmentsView.as_view()),
     path('debug/<app_dir>/<snippet_name>', pan_cnc_views.DebugMetadataView.as_view()),
     path('next_task', pan_cnc_views.NextTaskView.as_view()),
-    path('workflow/<step>', pan_cnc_views.WorkflowView.as_view()),
     path('editTarget', pan_cnc_views.EditTargetView.as_view()),
-    path('editRestTarget', pan_cnc_views.EditRestTargetView.as_view()),
-    path('provision', pan_cnc_views.ProvisionSnippetView.as_view()),
     path('terraform', pan_cnc_views.EditTerraformView.as_view())
 ]
 
@@ -117,7 +113,7 @@ for app_name in settings.INSTALLED_APPS_CONFIG:
             attributes = dict()
             for attr in v['attributes']:
                 if type(attr) is not str:
-                    print(f'Invalid attribute found in .pan-cnc.yaml for view: {v["name"]}')
+                    print(f'Invlid attribute found in .pan-cnc.yaml for view: {v["name"]}')
                     continue
 
                 if hasattr(class_object, attr):

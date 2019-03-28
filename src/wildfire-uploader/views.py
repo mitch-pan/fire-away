@@ -17,24 +17,37 @@ class uploadView(CNCBaseFormView):
         workflow = self.get_workflow()
 
         # get the values from the user submitted form here
+        link = workflow.get('link')
         file_name = workflow.get('file_name')
         api_key = workflow.get('api_key')
         sha256 = workflow.get('hash')
 
-        payload = {
-            'file_name': file_name, 'api_key': api_key, 'sha256': sha256 }
+        if api_key:
+            if file_name or sha256 or link:
+                payload = {
+                    'file_name': file_name, 'api_key': api_key, 'sha256': sha256, 'link': link }
 
-        resp = submit_and_check(payload)
+                resp = submit_and_check(payload)
 
-        fileName = resp['fileName']
-        sha256 = resp['sha256']
-        verdict = resp['verdict']
+                fileName = resp['fileName']
+                sha256 = resp['sha256']
+                verdict = resp['verdict']
+                link = resp['link']
 
-        formattedResponse = f'File Name: {fileName}\nSHA256: ' \
-                            f'{sha256}\nVerdict: {verdict}'
+                if link:
+                    formattedResponse = f'Link: {link}\nSHA256: ' \
+                                        f'{sha256}\nVerdict: {verdict}'
+                else:
+                    formattedResponse = f'File Name: {fileName}\nSHA256: ' \
+                                    f'{sha256}\nVerdict: {verdict}'
 
-        print(f"The response is: {resp}")
-        print(f"The formatted response is: {formattedResponse}")
+                #print(f"The response is: {resp}")
+                print(f"The formatted response is: {formattedResponse}")
+
+            else:
+                formattedResponse = f'Please enter a link, file name, or hash to submit'
+        else:
+            formattedResponse = f'Please enter a valid WF API key'
 
         results = super().get_context_data()
         results['results'] = formattedResponse
