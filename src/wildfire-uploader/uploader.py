@@ -3,6 +3,8 @@
 import requests
 import sys
 from time import sleep
+from urllib.parse import urlparse
+
 
 SUBMIT_FILE_URL = "https://wildfire.paloaltonetworks.com/publicapi/submit/file"
 SUBMIT_LINK_URL = "https://wildfire.paloaltonetworks.com/publicapi/submit/link"
@@ -22,15 +24,28 @@ def submitFile(fileName, apiKey):
         print("Sending {0} to WildFire...".format(fileName))
         response = requests.post(SUBMIT_FILE_URL, files=files)
 
-        #print(response.text)
+        print(response.text)
+        print(f'Response code = {response.status_code}')
 
         if response.status_code == 200:
+
             start = response.text.find("<sha256>")
             real_start = len("<sha256>") + start
             end = response.text.find("</sha256>")
             sha256 = response.text[real_start:end]
 
-        print(f'Returning hash = {sha256}')
+            print(f'Returning hash = {sha256}')
+        else:
+            error = response.text.find("<error>")
+            if error:
+                start = response.text.find("<error-message>")
+                real_start = len("<error-message>") + start
+                end = response.text.find("</error-message>")
+                errorMessage = response.text[real_start:end]
+                return f'ERROR: {errorMessage}'
+
+            #Couldn't find specifics of error, so just return generic error response
+            sha256 = "ERROR"
 
         return sha256
 
@@ -67,7 +82,7 @@ def submitLink(link, apiKey):
             end = response.text.find("</sha256>")
             sha256 = response.text[real_start:end]
 
-        print(f'Returning hash = {sha256}')
+        #print(f'Returning hash = {sha256}')
 
         return sha256
 
@@ -151,7 +166,7 @@ def submit_and_check( thingsToCheck ):
         sha256 = thingsToCheck['sha256']
 
 
-        print(f'Received file={fileName}, apiKey={apiKey} and hash={sha256}')
+        #print(f'Received file={fileName}, apiKey={apiKey} and hash={sha256} link={link}')
 
         if link:
             sha256 = submitLink(link, apiKey)
@@ -160,6 +175,11 @@ def submit_and_check( thingsToCheck ):
             sha256 = submitFile(fileName, apiKey )
 
         if sha256:
+
+            if sha256.find("ERROR") >=0:
+                return ({"fileName": fileName, "sha256": sha256, "verdict": sha256, "link": link })
+
+
             sleep(2)
 
             #real hash
@@ -185,6 +205,8 @@ def submit_and_check( thingsToCheck ):
 
 
 if __name__ == "__main__":
+
+
 
     payload = {
         'file_name': sys.argv[2], 'api_key': sys.argv[1], 'link': "https://www.paloaltonetworks.com/", 'sha256': ""}

@@ -12,7 +12,7 @@ views:
       title: Fire-Away
       description: >
         Use this tool to upload links, files or hashes to WF for analysis
-      documentation_link: http://github.com/mitch-pan/wf-uploader
+      documentation_link: http://github.com/mitch-pan/fire-away
       next: run_uploader
 
 
@@ -26,8 +26,7 @@ views:
       title: WildFire Results
       help_text: |
         File Name - Name of file to upload to WF
-        API Key - A valid WF API Key
- 
+
   - name: provision
     class: ProvisionSnippetView
 
