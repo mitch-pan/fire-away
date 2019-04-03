@@ -30,9 +30,8 @@ source venv/bin/activate
 
 <ol start="5">
 <li>Pull down required libraries for cnc: <br>
-<code>cd cnc<br>
-pip install -r requirements.txt
-</code>
+<code>cd cnc</code><br>
+<code>pip install -r requirements.txt</code>
 </ol>
 
 <ol start="6">
