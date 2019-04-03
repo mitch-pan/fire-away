@@ -22,10 +22,12 @@ views:
     menu: Fire-Away
     menu_option: Fire Away!
     attributes:
-      header: Fire-Away
-      title: WildFire Results
+      header: WildFire query option
       help_text: |
+        API KEY - The WF API key for your account
+        URL - A URL to submit to WildFire for analysis
         File Name - Name of file to upload to WF
+        SHA256 - A hash of a link or file to send to WildFire for a verdict
 
   - name: provision
     class: ProvisionSnippetView

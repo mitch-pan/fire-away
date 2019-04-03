@@ -21,7 +21,7 @@ variables:
   default: Full Path To File
   type_hint: text
 - name: hash
-  description: SHA256 of the file to query (optional)
+  description: SHA256 of the file or link to query (optional)
   default:
   type_hint: text
 
