@@ -8,10 +8,6 @@ labels:
   service_type: tort_assess
 
 variables:
-- name: api_key
-  description: WildFire API Key
-  default: 
-  type_hint: text
 - name: link
   description: URL to submit to WF
   default:

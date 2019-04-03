@@ -22,7 +22,8 @@ views:
     menu: Fire-Away
     menu_option: Fire Away!
     attributes:
-      header: WildFire query option
+      header: WildFire query options
+      title: Fire-Away
       help_text: |
         API KEY - The WF API key for your account
         URL - A URL to submit to WildFire for analysis

@@ -78,8 +78,9 @@ class uploadView(CNCBaseFormView):
 
                             verdict = resp['verdict']
                             link = resp['link']
+                            sha256 = resp['sha256']
 
-                            formattedResponse = f'{formattedResponse}Link: {link}\nVerdict: {verdict}\n\n'
+                            formattedResponse = f'{formattedResponse}Link: {link}\nSHA256: {sha256}\nVerdict: {verdict}\n\n'
 
                 #A file hash or filename was submitted
                 else:
