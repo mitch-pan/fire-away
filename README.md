@@ -1,6 +1,6 @@
-# WF Uploader
+# Fire-Away
 
-WF Uploader can be used to submit files to Palo Alto Networks WIldFire service.  The files are submitted via WildFire's 
+Fire-Away can be used to submit files to Palo Alto Networks WildFire service.  The files are submitted via WildFire's 
 API, and therefore you will need an API key to use this tool.
 
 You may submit either a local file (by providing the full path to that file) or the SHA256 has of a file.  If the path
