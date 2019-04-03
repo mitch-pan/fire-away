@@ -18,28 +18,26 @@ included then the hash is looked at.
 
 <ol start="3">
 <li>Setup a Python 3.6 virtual environment:<br>
-<code>python3.6 -m venv env<br>
-source venv/bin/activate
-</code>
+  <code>python3.6 -m venv env</code><br/>
+  <code>source venv/bin/activate</code>
 </ol>
 
 <ol start="4">
-<li>If the cnc subfolder is empty, cd into cnc and run:<br>
+<li>Pull down the cnc submodules:<br>
+<code>cd cnc</code><br>
 <code>git submodule init</code><br>
 <code>git submodule update</code><br>
 </ol>
 
 <ol start="5">
 <li>Pull down required libraries for cnc: <br>
-<code>cd cnc</code><br>
 <code>pip install -r requirements.txt</code>
 </ol>
 
 <ol start="6">
 <li>Setup the user database:<br>
-<code>./manage.py migrate<br>
-./manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'password')"
-</code>
+  <code>./manage.py migrate</code><br>
+  <code>./manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'password')"</code>
 </ol>
 
 <ol start="7">
