@@ -19,8 +19,13 @@ class uploadView(CNCBaseFormView):
         # get the values from the user submitted form here
         link = workflow.get('link')
         file_name = workflow.get('file_name')
-        api_key = workflow.get('api_key')
+        #api_key = workflow.get('api_key')
         sha256 = workflow.get('hash')
+
+        # Get API Key from env variable
+        api_key = self.get_value_from_workflow('api_key')
+
+        print(f'Using API key = {api_key}')
 
         if api_key:
             if file_name or sha256 or link:
@@ -47,7 +52,8 @@ class uploadView(CNCBaseFormView):
             else:
                 formattedResponse = f'Please enter a link, file name, or hash to submit'
         else:
-            formattedResponse = f'Please enter a valid WF API key'
+            formattedResponse = f'Please setup your WF API key as a environment variable.  The key name should be' \
+                                f'"api_key" and the value should be the WF API key you want to use'
 
         results = super().get_context_data()
         results['results'] = formattedResponse
