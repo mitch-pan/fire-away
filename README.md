@@ -6,7 +6,7 @@ API, and therefore you will need an API key to use this tool.
 You may submit either a local file (by providing the full path to that file) or the SHA256 has of a file.  If the path
  to a file is provided, then the hash is ignored.  If the hash is provided, then the file path is ignored.
 
-##Getting Started
+## Getting Started
 <ol><li>Download the repo:<br>
 <code>git clone https://github.com/mitch-pan/fire-away.git</code>
 </ol>
