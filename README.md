@@ -1,10 +1,11 @@
 # Fire-Away
 
-Fire-Away can be used to submit files to Palo Alto Networks WildFire service.  The files are submitted via WildFire's 
+Fire-Away can be used to submit files, links/URLs and hashes to Palo Alto Networks WildFire service.  The files are submitted via WildFire's 
 API, and therefore you will need an API key to use this tool.
 
-You may submit either a local file (by providing the full path to that file) or the SHA256 has of a file.  If the path
- to a file is provided, then the hash is ignored.  If the hash is provided, then the file path is ignored.
+Fields are examined from the top down.  If a link/URL is included, then the file and hahs fields are ignored.  If a
+link/URL is not included then the file path is looked at next, and finally, if neither a link/URL or file path is 
+included then the hash is looked at.
 
 ## Getting Started
 <ol><li>Download the repo:<br>
@@ -51,7 +52,7 @@ source venv/bin/activate
 </ol>
 
 ## Support
-This is a Palo Alto Networks community project.
+This is a community project.
 
 ## Authors
 * Mitch Rappard - [(@mitch-pan)](https://github.com/mitch-pan)
