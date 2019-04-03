@@ -24,9 +24,8 @@ source venv/bin/activate
 
 <ol start="4">
 <li>If the cnc subfolder is empty, cd into cnc and run:<br>
-<code>git submodule init<br>
-git submodule update<br>
-</code>
+<code>git submodule init</code><br>
+<code>git submodule update</code><br>
 </ol>
 
 <ol start="5">
