@@ -19,7 +19,7 @@ included then the hash is looked at.
 <ol start="3">
 <li>Setup a Python 3.6 virtual environment:<br>
   <code>python3.6 -m venv env</code><br/>
-  <code>source venv/bin/activate</code>
+  <code>source env/bin/activate</code>
 </ol>
 
 <ol start="4">
