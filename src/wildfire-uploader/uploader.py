@@ -51,14 +51,19 @@ def submitFile(fileName, apiKey):
 
     except IOError:
         print("Could not read/find file {0}".format(fileName))
+        return f'ERROR: Could not read/find file {fileName}'
     except requests.exceptions.ConnectionError as errc:
         print ("Error Connecting: ",errc)
+        return "ERROR: Error Connecting"
     except requests.exceptions.Timeout as errt:
         print ("Timeout Error: ",errt)
+        return "ERROR: Timeout Error"
     except requests.exceptions.RequestException as err:
         print ("General Connection Error: ",err)
+        return "ERROR: General Connection Error"
     except OSError as err:
         print ("Error: ", err )
+        return "ERROR: General Error"
 
     return None
 
@@ -88,12 +93,16 @@ def submitLink(link, apiKey):
 
     except requests.exceptions.ConnectionError as errc:
         print ("Error Connecting: ",errc)
+        return "ERROR: Error Connecting"
     except requests.exceptions.Timeout as errt:
         print ("Timeout Error: ",errt)
+        return "ERROR: Timeout Error"
     except requests.exceptions.RequestException as err:
         print ("General Connection Error: ",err)
+        return "ERROR: General Connection Error"
     except OSError as err:
         print ("Error: ", err )
+        return "ERROR: General Error"
 
     return None
 
@@ -174,7 +183,7 @@ def submit_and_check( thingsToCheck ):
         if sha256 == "":
             sha256 = submitFile(fileName, apiKey )
 
-        if sha256:
+        if sha256 is not None:
 
             if sha256.find("ERROR") >=0:
                 return ({"fileName": fileName, "sha256": sha256, "verdict": sha256, "link": link })
@@ -202,6 +211,7 @@ def submit_and_check( thingsToCheck ):
 
     except IOError:
         print("Could not read file {0}".format(sys.argv[2]))
+        return ({"fileName": fileName, "sha256": "none", "verdict": "Unable to read file"})
 
 
 if __name__ == "__main__":
