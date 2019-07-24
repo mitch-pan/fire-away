@@ -5,7 +5,8 @@ type: app
 extends:
 
 labels:
-  service_type: tort_assess
+  collection:
+    - Threat
 
 variables:
 - name: link
